@@ -16,7 +16,6 @@ var path = require('path');
     'requirejs',
     'text',
     'requirejs-plugins',
-    'handlebars',
     'jquery.cookie',
     'hermes-conrad',
     'async',
@@ -46,9 +45,6 @@ var path = require('path');
         client = 'client/';
     } else if (moduleId === 'requirejs-plugins') {
         moduleId = 'json';
-    } else if (moduleId === 'handlebars') {
-        moduleId = 'handlebars.amd';
-        modulePath = path.dirname(path.dirname(modulePath)) + '/dist/' + moduleId + '.js';
     } else if (moduleId === 'htmlparser-tostring') {
         modulePath = path.dirname(path.dirname(modulePath)) + '/dist/index.amd.js';
     } else if (moduleId === 'htmlparser') {

@@ -27,20 +27,20 @@ define([
                         ctl: {
                             name: 'cmp_name'
                         },
-                        templateEngine: 'handlebars'
+                        templateEngine: 'micro'
                     },
                     view2  = {
                         templateName: 'a:view_tmp',
                         ctl: {
                             name: 'cmp_name'
                         },
-                        templateEngine: 'handlebars'
+                        templateEngine: 'micro'
                     },
                     cmpTemplatePath = file.getTemplatePath(view1),
                     appTemplatePath = file.getTemplatePath(view2);
 
-                expect(cmpTemplatePath).to.be.equal('components/cmp_name/views/view_tmp.hbs');
-                expect(appTemplatePath).to.be.equal('app/views/view_tmp.hbs');
+                expect(cmpTemplatePath).to.be.equal('components/cmp_name/views/view_tmp.mt');
+                expect(appTemplatePath).to.be.equal('app/views/view_tmp.mt');
 
             });
 
@@ -50,14 +50,14 @@ define([
                         ctl: {
                             name: 'cmp_name'
                         },
-                        templateEngine: 'handlebars'
+                        templateEngine: 'micro'
                     },
                     view2  = {
                         templateName: function () { return 'a:view_tmp' },
                         ctl: {
                             name: 'cmp_name'
                         },
-                        templateEngine: 'handlebars'
+                        templateEngine: 'micro'
                     },
                     strTemplateName = file.getTemplateName(view1),
                     fnTemplateName = file.getTemplateName(view2);

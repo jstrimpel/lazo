@@ -29,9 +29,6 @@
     "client": {},
     "requirejs": {
         "shim": {
-            "handlebars": {
-                "exports": "Handlebars"
-            },
             "htmlparser": {
                 "exports": "Tautologistics.NodeHtmlParser"
             }

@@ -141,7 +141,7 @@ define([
                     ctl: {
                         name: 'foo'
                     },
-                    templatePath: 'test/application/components/foo/views/index.hbs'
+                    templatePath: 'test/application/components/foo/views/index.mt'
                 });
 
                 view.getTemplate({

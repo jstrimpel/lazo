@@ -14,24 +14,24 @@ define([
 
             beforeEach(function () {
                 // clean up any changes to structure in module closure
-                template.setDefaultTemplateEngine('handlebars');
-                template.setTemplateExt('handlebars', 'hbs');
+                template.setDefaultTemplateEngine('micro');
+                template.setTemplateExt('micro', 'mt');
             });
 
             function registerTemplateEngine() {
                 template.registerTemplateEngine('nunjucks', 'nj', {
                     compile: function () { return 'compile'; },
                     execute: function () { return 'execute'; }
-                }, 'nunjucks', 'nunjucks');
+                });
             }
 
             it('should get the default template engine extension', function () {
-                expect(template.getDefaultExt('handlebars')).to.be.equal('hbs');
+                expect(template.getDefaultExt('micro')).to.be.equal('mt');
             });
 
             it('should get the default template engine extension', function () {
-                template.setTemplateExt('handlebars', 'foo');
-                expect(template.getTemplateExt('handlebars')).to.be.equal('foo');
+                template.setTemplateExt('micro', 'foo');
+                expect(template.getTemplateExt('micro')).to.be.equal('foo');
             });
 
             it('should register a template engine', function () {
@@ -45,69 +45,37 @@ define([
                 expect(template.getTemplateExt('nunjucks')).to.be.equal('nj');
 
                 def = template.getTemplateEngineDef('nunjucks');
-                expect(def).to.have.property('extension');
                 expect(def).to.have.property('handler');
-                expect(def).to.have.property('path');
-                expect(def).to.have.property('exp');
             });
 
             it('should get a template engine', function () {
-                var engine = template.getTemplateEngine('handlebars');
-                expect(engine.engine).to.have.deep.property('HandlebarsEnvironment');
+                var engine = template.getTemplateEngine('micro');
+                expect(engine.engine).to.be.Function;
             });
 
             it('should get the template engine extension', function () {
-                expect(template.getTemplateExt('handlebars')).to.be.equal('hbs');
+                expect(template.getTemplateExt('micro')).to.be.equal('mt');
             });
 
             it('should get the template engine definition', function () {
-                var def = template.getTemplateEngineDef('handlebars');
-                expect(def.extension).to.be.equal('hbs');
+                var def = template.getTemplateEngineDef('micro');
+                expect(def.extension).to.be.equal('mt');
                 expect(def).to.have.property('handler');
-                expect(def.exp).to.be.equal('Handlebars');
             });
 
             it('should get the default template engine', function () {
                 var engine = template.getDefaultTemplateEngine();
-                expect(engine.engine).to.have.deep.property('HandlebarsEnvironment');
+                expect(engine.engine).to.be.Function;
             });
 
             it('should get the default template engine name', function () {
-                expect(template.getDefaultTemplateEngineName()).to.be.equal('handlebars');
+                expect(template.getDefaultTemplateEngineName()).to.be.equal('micro');
             });
 
             it('should set the default template engine', function () {
                 registerTemplateEngine();
                 template.setDefaultTemplateEngine('nunjucks');
                 expect(template.getDefaultTemplateEngineName()).to.be.equal('nunjucks');
-            });
-
-            it('should load a template engine', function (done) {
-                var dfd = this.async();
-                LAZO.require = requirejs;
-
-                template.loadTemplateEngine({
-                    name: 'micro',
-                    extension: 'mt',
-                    path: 'underscore',
-                    handler: function (_) {
-                        return {
-                            compile: function (template) {
-                                return _.template(template);
-                            },
-                            execute: function (compiledTemplate, data) {
-                                return compiledTemplate(data);
-                            },
-                            engine: _.template
-                        };
-                    }
-                }, {
-                    success: function (engine) {
-                        var eng = template.getTemplateEngine('micro');
-                        expect(engine).to.be.equal(engine);
-                        dfd.resolve();
-                    }
-                });
             });
 
         });
